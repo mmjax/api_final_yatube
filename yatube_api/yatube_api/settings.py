@@ -19,10 +19,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    'api',
-    'posts',
     'corsheaders',
     'djoser',
+    'posts',
+    'api',
 ]
 
 MIDDLEWARE = [

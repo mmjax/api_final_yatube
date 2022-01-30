@@ -10,7 +10,12 @@ from .serializers import (
     GroupSerializer, FollowSerializer
 )
 from .permissions import IsAuthorOrReadOnly
-from posts.models import Post, Group, Follow, User
+from posts.models import Post, Group, Follow
+
+
+class GetAndPostViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
+                        viewsets.GenericViewSet):
+    pass
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -42,8 +47,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GroupSerializer
 
 
-class FollowViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
-                    viewsets.GenericViewSet):
+class FollowViewSet(GetAndPostViewSet):
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated,)
     filter_backends = (filters.SearchFilter,)
@@ -53,5 +57,4 @@ class FollowViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.request.user)
-        return Follow.objects.filter(user=user)
+        return Follow.objects.filter(user__username=self.request.user)
