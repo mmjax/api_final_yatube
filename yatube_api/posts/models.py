@@ -26,7 +26,10 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return self.text
+        return self.text[:15]
+    
+    class Meta:
+        ordering = ('pub_date',)
 
 
 class Comment(models.Model):
@@ -37,6 +40,9 @@ class Comment(models.Model):
     text = models.TextField()
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
+    
+    class Meta:
+        ordering = ('-created',)
 
 
 class Follow(models.Model):
@@ -50,3 +56,11 @@ class Follow(models.Model):
         on_delete=models.CASCADE,
         related_name='following',
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'following'],
+                name='uniq_followers'
+            )
+        ]
