@@ -1,4 +1,8 @@
 # API для YaTube
+### Описание
+Благодаря этому проекту можно публиковать изменять удалять посты и загружать к ним фотографии, оставлять комментарии под постами и подписываться на понравившихся авторов.
+### Технологии
+Python, Django, DRF, DRF-Simple JWT.
 ### Как запустить проект:
 
 Клонировать репозиторий и перейти в него в командной строке:
@@ -41,4 +45,145 @@ python manage.py migrate
 
 ```
 python manage.py runserver
+```
+
+## **Примеры запросов**
+```
+GET /api/v1/posts/
+```
+**Образец ответа**
+```
+{
+    "id": 0,
+    "author": "string",
+    "text": "string",
+    "pub_date": "2019-08-24T14:15:22Z",
+    "image": "string",
+    "group": 0
+}
+```
+---
+```
+POST /api/v1/posts/
+```
+**Образец ответа**
+```
+}
+    "text": "string",
+    "image": "string",
+    "group": 0
+}
+```
+**Образец ответа**
+```
+{
+    "id": 0,
+    "author": "string",
+    "text": "string",
+    "pub_date": "2019-08-24T14:15:22Z",
+    "image": "string",
+    "group": 0
+}
+```
+---
+```
+PUT /api/v1/posts/{id}/
+```
+**Образец ответа**
+```
+{
+    "text": "stringstring",
+    "image": "string",
+    "group": 0
+}
+```
+**Образец ответа**
+```
+{
+    "id": 0,
+    "author": "stringstring",
+    "text": "string",
+    "pub_date": "2019-08-24T14:15:22Z",
+    "image": "string",
+    "group": 0
+}
+```
+---
+```
+PATCH /api/v1/posts/{id}/
+```
+**Образец ответа**
+```
+{
+    "text": "anotherstring"
+}
+```
+**Образец ответа**
+```
+{
+    "id": 0,
+    "author": "stringstring",
+    "text": "anotherstring",
+    "pub_date": "2019-08-24T14:15:22Z",
+    "image": "string",
+    "group": 0
+}
+```
+---
+```
+DELETE /api/v1/posts/{id}/
+```
+---
+```
+GET /api/v1/posts/{post_id}/comments/
+```
+**Образец ответа**
+```
+[
+    {
+        "id": 0,
+        "author": "string",
+        "text": "string",
+        "created": "2019-08-24T14:15:22Z",
+        "post": 0
+    }
+]
+```
+---
+```
+POST /api/v1/posts/{post_id}/comments/
+```
+**Образец ответа**
+```
+{
+    "text": "string"
+}
+```
+**Образец ответа**
+```
+{
+    "id": 0,
+    "author": "string",
+    "text": "string",
+    "created": "2019-08-24T14:15:22Z",
+    "post": 0
+}
+```
+---
+```
+POST /api/v1/jwt/create/
+```
+**Образец ответа**
+```
+{
+    "username": "string",
+    "password": "string"
+}
+```
+**Образец ответа**
+```
+{
+    "refresh": "string",
+    "access": "string"
+}
 ```
